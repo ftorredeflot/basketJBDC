@@ -31,6 +31,13 @@ public class Basket {
             conexion.insertTeam(team);
            System.out.println("Equipo insertado con éxito");
            
+           
+             System.out.println("Estableciendo la conexión con el servidor...");
+            Team team2 = new Team("lospatatas","Barcelona",LocalDate.now());
+            //ex 1
+            System.out.println("Insertando equipo...");
+            conexion.insertTeam(team2);
+           System.out.println("Equipo insertado con éxito");
            //ex2
            
            
