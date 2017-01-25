@@ -5,17 +5,46 @@
  */
 package basket;
 
+import persistence.BasketJDBC;
+import model.Player;
+import model.Team;
+import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
+
 /**
  *
  * @author ferran
  */
 public class Basket {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        BasketJDBC conexion = new BasketJDBC();
+        try {   
+            conexion.connect();
+            
+            System.out.println("Estableciendo la conexión con el servidor...");
+            Team team = new Team("Stucom","Barcelona",LocalDate.now());
+            //ex 1
+            System.out.println("Insertando equipo...");
+            conexion.insertTeam(team);
+           System.out.println("Equipo insertado con éxito");
+           
+           //ex2
+           
+           
+        } catch (SQLException ex) {
+            System.out.println("Error con la BBDD: " + ex.getMessage());
+        } finally {
+            try {
+                conexion.desconectar();
+                System.out.println("Conexión cerrada.");
+            } catch (SQLException ex) {
+               System.out.println("Error al desconectar "+ex.getMessage());
+            }
+        }
     }
-    
 }
+
+
