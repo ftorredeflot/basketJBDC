@@ -8,10 +8,10 @@ package basket;
 import persistence.BasketJDBC;
 import model.Player;
 import model.Team;
+import model.pos;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 
 /**
  *
@@ -21,26 +21,33 @@ public class Basket {
 
     public static void main(String[] args) {
         BasketJDBC conexion = new BasketJDBC();
-        try {   
+        try {
             conexion.connect();
-            
+
             System.out.println("Estableciendo la conexión con el servidor...");
-            Team team = new Team("Stucom1","Barcelona",LocalDate.now());
+            Team team1 = new Team("Stucom1", "Barcelona", LocalDate.now());
             //ex 1
             System.out.println("Insertando equipo...");
-            conexion.insertTeam(team);
-           System.out.println("Equipo insertado con éxito");
-           
-           
-             System.out.println("Estableciendo la conexión con el servidor...");
-            Team team2 = new Team("lospatatas1","Barcelona",LocalDate.now());
+            conexion.insertTeam(team1);
+            System.out.println("Equipo insertado con éxito");
+
+            System.out.println("Estableciendo la conexión con el servidor...");
+            Team team2 = new Team("lospatatas1", "Barcelona", LocalDate.now());
             //ex 1
             System.out.println("Insertando equipo...");
             conexion.insertTeam(team2);
-           System.out.println("Equipo insertado con éxito");
-           //ex2
-           
-           
+            System.out.println("Equipo insertado con éxito");
+
+            //ex2
+            Player player1 = new Player("Magner", LocalDate.now(), 100, 100, 100, pos.alero , team1);
+            Player player2 = new Player("Jandol", LocalDate.now(), 200, 200, 200, pos.base, team2);
+
+            conexion.insertPlayer(player1);
+            conexion.insertPlayer(player2);
+
+            System.out.println("Jugadores dados de alta...");
+            System.out.println("");
+
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {
@@ -48,10 +55,8 @@ public class Basket {
                 conexion.desconectar();
                 System.out.println("Conexión cerrada.");
             } catch (SQLException ex) {
-               System.out.println("Error al desconectar "+ex.getMessage());
+                System.out.println("Error al desconectar " + ex.getMessage());
             }
         }
     }
 }
-
-
