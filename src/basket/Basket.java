@@ -41,9 +41,13 @@ public class Basket {
             //ex2
             Player player1 = new Player("Magner", LocalDate.now(), 100, 100, 100, pos.alero , team1);
             Player player2 = new Player("Jandol", LocalDate.now(), 200, 200, 200, pos.base, team2);
+             Player player3 = new Player("Marine", LocalDate.now(), 300, 300, 30000, pos.escolta, team1);
+            Player player4 = new Player("mariaDelaOH", LocalDate.now(), 400, 300, 40000, pos.pivot, team2);
 
             conexion.insertPlayer(player1);
             conexion.insertPlayer(player2);
+            conexion.insertPlayer(player3);
+            conexion.insertPlayer(player4);
 
             System.out.println("Jugadores dados de alta...");
             System.out.println("");
