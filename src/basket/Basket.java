@@ -52,6 +52,11 @@ public class Basket {
             conexion.updatePlayer(player1, 1000, 1000, 1000);
             System.out.println(player1.getName() + " modificado con éxito");
             System.out.println("");
+            //ex4
+            System.out.println("Modifcar jugador: " + player2.getName());
+            conexion.changePlayerTeam(player2, team1);
+            System.out.println(player2.getName() + " modificado con éxito");
+            System.out.println("");
 
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());

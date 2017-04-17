@@ -51,6 +51,14 @@ public class BasketJDBC {
         psu.executeUpdate();
         psu.close();
     }
+    
+    public void changePlayerTeam(Player player,Team team) throws SQLException {
+        PreparedStatement psu = conexion.prepareStatement("UPDATE player set team=? WHERE name = ?");
+        psu.setString(1, team.getName());
+        psu.setString(2, player.getName());
+        psu.executeUpdate();
+        psu.close();
+    }
 
     public void connect() throws SQLException {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/basket", "jdbc", "patata");
