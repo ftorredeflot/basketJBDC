@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package basket;
 
 import persistence.BasketJDBC;
@@ -39,9 +34,9 @@ public class Basket {
             System.out.println("Equipo insertado con éxito");
 
             //ex2
-            Player player1 = new Player("Magner", LocalDate.now(), 100, 100, 100, pos.alero , team1);
+            Player player1 = new Player("Magner", LocalDate.now(), 100, 100, 100, pos.alero, team1);
             Player player2 = new Player("Jandol", LocalDate.now(), 200, 200, 200, pos.base, team2);
-             Player player3 = new Player("Marine", LocalDate.now(), 300, 300, 30000, pos.escolta, team1);
+            Player player3 = new Player("Marine", LocalDate.now(), 300, 300, 30000, pos.escolta, team1);
             Player player4 = new Player("mariaDelaOH", LocalDate.now(), 400, 300, 40000, pos.pivot, team2);
 
             conexion.insertPlayer(player1);
@@ -50,6 +45,12 @@ public class Basket {
             conexion.insertPlayer(player4);
 
             System.out.println("Jugadores dados de alta...");
+            System.out.println("");
+            //ex3
+
+            System.out.println("Modifcar jugador: " + player1.getName());
+            conexion.updatePlayer(player1, 1000, 1000, 1000);
+            System.out.println(player1.getName() + " modificado con éxito");
             System.out.println("");
 
         } catch (SQLException ex) {
