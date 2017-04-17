@@ -25,7 +25,7 @@ public class Basket {
             conexion.connect();
             
             System.out.println("Estableciendo la conexión con el servidor...");
-            Team team = new Team("Stucom","Barcelona",LocalDate.now());
+            Team team = new Team("Stucom1","Barcelona",LocalDate.now());
             //ex 1
             System.out.println("Insertando equipo...");
             conexion.insertTeam(team);
@@ -33,7 +33,7 @@ public class Basket {
            
            
              System.out.println("Estableciendo la conexión con el servidor...");
-            Team team2 = new Team("lospatatas","Barcelona",LocalDate.now());
+            Team team2 = new Team("lospatatas1","Barcelona",LocalDate.now());
             //ex 1
             System.out.println("Insertando equipo...");
             conexion.insertTeam(team2);

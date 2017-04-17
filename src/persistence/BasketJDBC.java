@@ -28,7 +28,20 @@ public class BasketJDBC {
         preparedStatement.close();
     }
     
-    
+         public void insertPlayer(Player player) throws SQLException {
+        String insert = "insert into player values (?, ?, ?, ?, ?, ?, ?);";
+        PreparedStatement preparedStatement = conexion.prepareStatement(insert);
+        preparedStatement.setString(1, player.getName());
+        preparedStatement.setDate(2, Date.valueOf(player.getBorn()));
+        preparedStatement.setInt(3,player.getnBaskets());
+        preparedStatement.setInt(4,player.getnAssists());
+        preparedStatement.setInt(5,player.getnRebots());
+        preparedStatement.setString(6,player.getPos());
+        preparedStatement.setString(7,player.getTeam().getName());
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+    }
+     
 
      
 
