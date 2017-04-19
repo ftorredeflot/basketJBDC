@@ -59,6 +59,12 @@ public class BasketJDBC {
         psu.executeUpdate();
         psu.close();
     }
+        public void deletePlayer(Player player) throws SQLException {
+        PreparedStatement pst = conexion.prepareStatement("DELETE FROM player WHERE name=? ");
+        pst.setString(1, player.getName());
+        pst.executeUpdate();
+        pst.close();
+    }
 
     public void connect() throws SQLException {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/basket", "jdbc", "patata");

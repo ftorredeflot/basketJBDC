@@ -57,7 +57,12 @@ public class Basket {
             conexion.changePlayerTeam(player2, team1);
             System.out.println(player2.getName() + " modificado con éxito");
             System.out.println("");
-
+            //ex5
+              System.out.println("Eliminar Jugador: " + player3.getName());
+              conexion.deletePlayer(player3);
+              System.out.println(player3.getName() + " eliminado con éxito");
+              System.out.println("");
+            
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {
