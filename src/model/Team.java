@@ -48,6 +48,11 @@ public class Team {
     public void setFundation(LocalDate fundation) {
         this.fundation = fundation;
     }
+
+    @Override
+    public String toString() {
+        return "Team{" + "name=" + name + ", location=" + location + ", fundation=" + fundation + '}';
+    }
     
     
 
