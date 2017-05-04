@@ -2,6 +2,7 @@ package persistence;
 
 import model.Player;
 import model.Team;
+import model.Stats;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,8 +144,8 @@ public class BasketJDBC {
         return players;
 
     }
-    
-        public List<Player> selectPlayerByAssists(Integer min, Integer max) throws SQLException {
+
+    public List<Player> selectPlayerByAssists(Integer min, Integer max) throws SQLException {
         PreparedStatement selectTable = conexion.prepareStatement("select * from player where nassists >= " + min + " && nbaskets <= " + max + "");
         ResultSet result = selectTable.executeQuery();
         ArrayList players = new ArrayList();
@@ -164,9 +165,88 @@ public class BasketJDBC {
         return players;
 
     }
-        
-        
 
+    public List<Player> selectPlayerByPosition(String posicio) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("select * from player where position ='" + posicio + "'");
+        ResultSet result = selectTable.executeQuery();
+        ArrayList players = new ArrayList();
+        while (result.next()) {
+            Player player = new Player();
+            player.setName(result.getString("name"));
+            player.setBorn(result.getDate("birth").toLocalDate());
+            player.setnAssists(result.getInt("nassists"));
+            player.setnBaskets(result.getInt("nbaskets"));
+            player.setnRebots(result.getInt("nrebounds"));
+            player.setPos(result.getString("position"));
+            player.setTeam(selectTeamByName(result.getString("team")));
+            players.add(player);
+        }
+        result.close();
+        selectTable.close();
+        return players;
+
+    }
+
+    public List<Player> selectPlayerByBirth(Date date) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("select * from player where birth <= '" + date.toLocalDate() + "'");
+        ResultSet result = selectTable.executeQuery();
+        ArrayList players = new ArrayList();
+        while (result.next()) {
+            Player player = new Player();
+            player.setName(result.getString("name"));
+            player.setBorn(result.getDate("birth").toLocalDate());
+            player.setnAssists(result.getInt("nassists"));
+            player.setnBaskets(result.getInt("nbaskets"));
+            player.setnRebots(result.getInt("nrebounds"));
+            player.setPos(result.getString("position"));
+            player.setTeam(selectTeamByName(result.getString("team")));
+            players.add(player);
+        }
+        result.close();
+        selectTable.close();
+        return players;
+
+    }
+
+    public List<Stats> selectAllPlayersAvgMaxMinStatsGroupByPosition() throws SQLException {
+        String query = "select position, avg(nbaskets), avg(nassists), avg(nrebounds), max(nbaskets), max(nassists), max(nrebounds), min(nbaskets), min(nassists), min(nrebounds)from player group by position";
+        PreparedStatement preparedStatement = conexion.prepareStatement(query);
+        ResultSet resultset = preparedStatement.executeQuery(query);
+        List<Stats> statsList = new ArrayList<>();
+        while (resultset.next()) {
+            Stats stats = new Stats();
+            stats.setPosition(resultset.getString("position"));
+            stats.setAvgB(resultset.getDouble("avg(nbaskets)"));
+            stats.setAvgA(resultset.getDouble("avg(nassists)"));
+            stats.setAvgR(resultset.getDouble("avg(nrebounds)"));
+            stats.setMaxB(resultset.getInt("max(nbaskets)"));
+            stats.setMaxA(resultset.getInt("max(nassists)"));
+            stats.setMaxR(resultset.getInt("max(nrebounds)"));
+            stats.setMinB(resultset.getInt("min(nbaskets)"));
+            stats.setMinA(resultset.getInt("min(nassists)"));
+            stats.setMinR(resultset.getInt("min(nrebounds)"));
+            statsList.add(stats);
+        }
+        resultset.close();
+        preparedStatement.close();
+        return statsList;
+    }
+
+    public List<Player> selectPlayerOByNbaskets() throws SQLException {
+        String query = "select * from player order by nbaskets DESC;";
+        PreparedStatement preparedStatement = conexion.prepareStatement(query);
+        ResultSet resultset = preparedStatement.executeQuery(query);
+        List<Player> players = new ArrayList<>();
+        while (resultset.next()) {
+            Player player = new Player();
+            player.setName(resultset.getString("name"));
+            player.setnBaskets(resultset.getInt("nbaskets"));
+            players.add(player);
+        }
+        resultset.close();
+        preparedStatement.close();
+        return players;
+    }
 
     public void connect() throws SQLException {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/basket", "jdbc", "patata");

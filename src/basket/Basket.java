@@ -7,6 +7,7 @@ import model.pos;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import model.Stats;
 
 /**
  *
@@ -85,9 +86,37 @@ public class Basket {
             for (Player players : conexion.selectPlayerByAssists(50, 250)) {
                 System.out.println(players.toString());
             }
+            //ex10
+            System.out.println("Jugadores que jueguen la posicion " + pos.base + ": ");
 
+            for (Player players : conexion.selectPlayerByPosition(pos.base)) {
+                System.out.println(players.toString());
+            }
 
-            
+            //ex11
+            System.out.println("Jugadores que hayan nacido en una fecha anterior a una fecha especificada: ");
+            for (Player players : conexion.selectPlayerByBirth(Date.valueOf(LocalDate.now()))) {
+                System.out.println(players.toString());
+            }
+            System.out.println("");
+
+            //ex12
+            System.out.println("Estadisticas de jugadores agrupados por posicion: ");
+            for (Stats stats : conexion.selectAllPlayersAvgMaxMinStatsGroupByPosition()) {
+                System.out.println(stats.toString());
+            }
+            System.out.println("");
+            //ex13
+            System.out.println("Ranking de jugadores por número de canastas: ");
+            int nPos = 1;
+            for (Player players : conexion.selectPlayerOByNbaskets()) {
+                System.out.print("Pos: " + nPos);
+                System.out.println(" Nombre: " + players.getName() + " Canastas: " + players.getnBaskets());
+                nPos++;
+            }
+            System.out.println("");
+            //ex14
+
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {
