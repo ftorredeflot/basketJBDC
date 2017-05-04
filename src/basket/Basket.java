@@ -74,6 +74,20 @@ public class Basket {
                 System.out.println(players.toString());
             }
             System.out.println("");
+            //ex8
+            System.out.println("Jugadores con 200 o más canastas: ");
+            for (Player players : conexion.selectPlayerByBaskets(0, 200)) {
+                System.out.println(players.toString());
+            }
+
+            //ex9
+            System.out.println("Jugadores con asistencias entre 50 y 250: ");
+            for (Player players : conexion.selectPlayerByAssists(50, 250)) {
+                System.out.println(players.toString());
+            }
+
+
+            
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {

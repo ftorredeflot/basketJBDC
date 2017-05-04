@@ -123,6 +123,51 @@ public class BasketJDBC {
 
     }
 
+    public List<Player> selectPlayerByBaskets(Integer min, Integer max) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("select * from player where nbaskets >= " + min + " && nbaskets <= " + max + "");
+        ResultSet result = selectTable.executeQuery();
+        ArrayList players = new ArrayList();
+        while (result.next()) {
+            Player player = new Player();
+            player.setName(result.getString("name"));
+            player.setBorn(result.getDate("birth").toLocalDate());
+            player.setnAssists(result.getInt("nassists"));
+            player.setnBaskets(result.getInt("nbaskets"));
+            player.setnRebots(result.getInt("nrebounds"));
+            player.setPos(result.getString("position"));
+            player.setTeam(selectTeamByName(result.getString("team")));
+            players.add(player);
+        }
+        result.close();
+        selectTable.close();
+        return players;
+
+    }
+    
+        public List<Player> selectPlayerByAssists(Integer min, Integer max) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("select * from player where nassists >= " + min + " && nbaskets <= " + max + "");
+        ResultSet result = selectTable.executeQuery();
+        ArrayList players = new ArrayList();
+        while (result.next()) {
+            Player player = new Player();
+            player.setName(result.getString("name"));
+            player.setBorn(result.getDate("birth").toLocalDate());
+            player.setnAssists(result.getInt("nassists"));
+            player.setnBaskets(result.getInt("nbaskets"));
+            player.setnRebots(result.getInt("nrebounds"));
+            player.setPos(result.getString("position"));
+            player.setTeam(selectTeamByName(result.getString("team")));
+            players.add(player);
+        }
+        result.close();
+        selectTable.close();
+        return players;
+
+    }
+        
+        
+
+
     public void connect() throws SQLException {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/basket", "jdbc", "patata");
     }
