@@ -117,6 +117,40 @@ public class Basket {
             System.out.println("");
             //ex14
 
+            int posR = 2; //posicion que buscamos
+            int currPos = 1;
+            System.out.println("Jugador por posición en el ranking [" + posR + "]: ");
+            for (Player players : conexion.selectPlayerOByNbaskets()) {
+                if (currPos == posR) {
+                    System.out.println("Nombre: " + players.getName());
+                }
+                currPos++;
+            }
+            System.out.println("");
+//ex15
+            System.out.println("Equipos por localidad: " + team2.getLocation());
+            for (Team teams : conexion.selectTeamByCity(team2.getLocation())) {
+                System.out.println(teams.toString());
+            }
+            System.out.println("");
+//ex16
+            System.out.println("Jugadores por equipo: " + team1.getName());
+            for (Player players : conexion.selectPlayersByTeam(team1.getName())) {
+                System.out.println(players.toString());
+            }
+            System.out.println("");
+//ex17
+
+            System.out.println("Jugadores por equipo et posición: " + team1.getName() + " " + pos.base);
+            for (Player players : conexion.selectPlayersByTeamAndPosition(team1.getName(), pos.base)) {
+                System.out.println(players.toString());
+            }
+            System.out.println("");
+//ex18
+            System.out.println("Jugador con más canastas del equipo: " + team1.getName());
+            System.out.println(conexion.selectPlayersMaxCanastasByTeam(team1.getName()).toString());
+            System.out.println("");
+
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {
