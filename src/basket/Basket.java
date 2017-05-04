@@ -58,11 +58,14 @@ public class Basket {
             System.out.println(player2.getName() + " modificado con éxito");
             System.out.println("");
             //ex5
-              System.out.println("Eliminar Jugador: " + player3.getName());
-              conexion.deletePlayer(player3);
-              System.out.println(player3.getName() + " eliminado con éxito");
-              System.out.println("");
-            
+            System.out.println("Eliminar Jugador: " + player3.getName());
+            conexion.deletePlayer(player3);
+            System.out.println(player3.getName() + " eliminado con éxito");
+            System.out.println("");
+            //ex6
+            System.out.println("Otener jugador: " + player4.getName());
+            System.out.println(conexion.selectPlayerByName("mariaDelaOH").toString());
+            System.out.println("");
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {

@@ -65,6 +65,40 @@ public class BasketJDBC {
         pst.executeUpdate();
         pst.close();
     }
+       public Player selectPlayerByName(String name) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("SELECT * FROM player WHERE name = ?");
+        selectTable.setString(1, name);
+        ResultSet result = selectTable.executeQuery();
+        Player player = new Player();
+        if (result.next()) {
+            player.setName(result.getString("name"));
+            player.setBorn(result.getDate("birth").toLocalDate());
+            player.setnAssists(result.getInt("nassists"));
+            player.setnBaskets(result.getInt("nbaskets"));
+            player.setnRebots(result.getInt("nrebounds"));
+            player.setPos(result.getString("position"));
+            player.setTeam(selectTeamByName(result.getString("team")));
+        }
+        result.close();
+        selectTable.close();
+        return player;
+    }
+       
+           public Team selectTeamByName(String name) throws SQLException {
+        PreparedStatement selectTable = conexion.prepareStatement("SELECT * FROM team WHERE name = ?");
+        selectTable.setString(1, name);
+        ResultSet result = selectTable.executeQuery();
+        Team team = new Team();
+        if (result.next()) {
+            team.setName(result.getString("name"));
+            team.setLocation(result.getString("city"));
+            team.setFundation(result.getDate("creation").toLocalDate());
+        }
+        result.close();
+        selectTable.close();
+        return team;
+
+    }
 
     public void connect() throws SQLException {
         conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/basket", "jdbc", "patata");
