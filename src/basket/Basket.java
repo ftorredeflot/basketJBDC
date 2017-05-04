@@ -66,6 +66,14 @@ public class Basket {
             System.out.println("Otener jugador: " + player4.getName());
             System.out.println(conexion.selectPlayerByName("mariaDelaOH").toString());
             System.out.println("");
+
+            //ex7
+            System.out.println("Obtener jugadores por la letra J");
+
+            for (Player players : conexion.selectPlayerByNameLike("J")) {
+                System.out.println(players.toString());
+            }
+            System.out.println("");
         } catch (SQLException ex) {
             System.out.println("Error con la BBDD: " + ex.getMessage());
         } finally {
